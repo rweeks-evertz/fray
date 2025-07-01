@@ -3,6 +3,7 @@ on:
  workflow_dispatch:
 jobs:
   jvmti-test:
+    name: JVMTI Test
     runs-on: ${{ matrix.operating-system }}
     permissions:
       contents: write
