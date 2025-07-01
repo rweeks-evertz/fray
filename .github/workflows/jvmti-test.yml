@@ -19,16 +19,7 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
           cache: 'gradle'
-      - name: Read and update version
-        run: |
-          if [[ -n "${{ github.event.inputs.version }}" ]]; then
-            BASE_VERSION="${{ github.event.inputs.version }}"
-          else
-            BASE_VERSION=$(grep "^version=" gradle.properties | cut -d'=' -f2)
-          fi
-          echo "VERSION=${BASE_VERSION}" >> $GITHUB_ENV
-          echo "Version: $BASE_VERSION"
       - name: Create jreleaser work directory
         run: mkdir -p ./build/jreleaser
       - name: Package JMTI
-        run: ./gradlew :jvmti:jar -Pversion=$VERSION
+        run: ./gradlew :jvmti:jar
