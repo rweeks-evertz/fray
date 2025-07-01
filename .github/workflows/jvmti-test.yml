@@ -1,4 +1,10 @@
 name: Manual test of JVMTI packaging
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 jobs:
   jvmti-test:
     runs-on: ${{ matrix.operating-system }}
