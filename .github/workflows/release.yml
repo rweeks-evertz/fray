@@ -14,13 +14,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ macos-latest, ubuntu-latest, windows-latest]
+        operating-system: [ macos-latest, ubuntu-latest, windows]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
-          java-version: '11'
+          distribution: 'corretto'
+          java-version: '23'
           cache: 'gradle'
       - name: Read and update version
         run: |
@@ -33,12 +33,10 @@ jobs:
           echo "Version: $BASE_VERSION"
       - name: Create jreleaser work directory
         run: mkdir -p ./build/jreleaser
-      - name: Create stage deploy (macOS)
-        if: runner.os == 'windows'
+      - name: Create stage deploy
+        if: runner.os == 'macOS' | runner.s == 'windows'
         run: ./gradlew :jvmti:publish -Pversion=$VERSION
-      - name: Create stage deploy (macOS)
-        if: runner.os == 'macOS'
-        run: ./gradlew :jvmti:publish -Pversion=$VERSION
+              - name: Create stage deploy (macOS)VERSION
       - name: Create stage deploy (Linux)
         if: runner.os == 'Linux'
         run: ./gradlew publish -Pversion=$VERSION
